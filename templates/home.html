@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Add new document</h1>
+<form method="POST" action="/">
+    <input type="text" name="id">
+    <input type="text" name="title">
+    <input type="text" name="author">
+    <input type="submit" value="Add">
+</form>
+
+<h1>Registered Documents</h1>
+{% for book in books %}
+<p>{{book.id}}: {{book.title}},  {{book.author}}, {{book.date}}</p>
+<form method="POST" action="./update">
+    <input type="hidden" value="{{book.id}}" name="id">
+    <input type="text" value="{{book.title}}" name="newtitle">
+    <input type="text" value="{{book.author}}" name="newauthor">
+    <input type="submit" value="Update">
+</form>
+
+<form method="POST" action="./delete">
+    <input type="hidden" value="{{book.id}}" name="id">
+    <input type="submit" value="Delete">
+</form>
+
+{% endfor %}
+
+</body>
+</html>
