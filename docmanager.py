@@ -43,8 +43,8 @@ def home():
             docs = Doc.query.all()
             return render_template("home.html", warnings=warnings, docs=docs)
 
-        book = Doc(id=identifier, title=title, author=request.form.get("author"), date=now.isoformat())
-        db.session.add(book)
+        doc = Doc(id=identifier, title=title, author=request.form.get("author"), date=now.isoformat())
+        db.session.add(doc)
         db.session.commit()
 
     docs = Doc.query.all()
@@ -61,17 +61,17 @@ def update():
 
     newauthor = request.form.get("newauthor")
     sid = request.form.get("id")
-    book = Doc.query.filter_by(id=sid).first()
-    book.title = newtitle
-    book.author = newauthor
+    doc = Doc.query.filter_by(id=sid).first()
+    doc.title = newtitle
+    doc.author = newauthor
     db.session.commit()
     return redirect("/")
 
 @app.route("/delete", methods=["POST"])
 def delete():
     sid = request.form.get("id")
-    book = Doc.query.filter_by(id=sid).first()
-    db.session.delete(book)
+    doc = Doc.query.filter_by(id=sid).first()
+    db.session.delete(doc)
     db.session.commit()
     return redirect("/")
 
