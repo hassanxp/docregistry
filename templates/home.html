@@ -13,18 +13,25 @@
     <input type="submit" value="Add">
 </form>
 
+{% if warnings is defined %}
+    <h1>Warnings:</h1>
+    {% for w in warnings %}
+        {{ w }}
+    {% endfor %}
+{% endif %}
+
 <h1>Registered Documents</h1>
-{% for book in books %}
-<p>{{book.id}}: {{book.title}},  {{book.author}}, {{book.date}}</p>
+{% for doc in docs %}
+<p>{{doc.id}}: {{doc.title}},  {{doc.author}}, {{doc.date}}</p>
 <form method="POST" action="./update">
-    <input type="hidden" value="{{book.id}}" name="id">
-    <input type="text" value="{{book.title}}" name="newtitle">
-    <input type="text" value="{{book.author}}" name="newauthor">
+    <input type="hidden" value="{{doc.id}}" name="id">
+    <input type="text" value="{{doc.title}}" name="newtitle">
+    <input type="text" value="{{doc.author}}" name="newauthor">
     <input type="submit" value="Update">
 </form>
 
 <form method="POST" action="./delete">
-    <input type="hidden" value="{{book.id}}" name="id">
+    <input type="hidden" value="{{doc.id}}" name="id">
     <input type="submit" value="Delete">
 </form>
 
