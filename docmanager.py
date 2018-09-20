@@ -5,9 +5,9 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import exists
 import datetime
 from typing import List
+import flask_restless
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 database_file = "sqlite:///{}".format(os.path.join(project_dir, "docdatabase.db"))
@@ -89,5 +89,14 @@ def checkTitle(title:str, warnings: List[str]):
         warnings.append("Title: {} already exists".format(title))
     return
 
+
 if __name__ == "__main__":
+    # Create the Flask-Restless API manager.
+    manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
+
+    # Create API endpoints, which will be available at /api/<tablename> by
+    # default. Allowed HTTP methods can be specified as well.
+    manager.create_api(Doc, methods=['GET', 'POST', 'DELETE'])
+
+
     app.run(debug=True)
